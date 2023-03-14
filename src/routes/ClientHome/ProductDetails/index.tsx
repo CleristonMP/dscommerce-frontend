@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -16,7 +15,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState<ProductDTO>();
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/products/${params.productId}`).then(response => {
+    productService.findById(Number(params.productId)).then((response) => {
       setProduct(response.data);
     });
   }, []);
