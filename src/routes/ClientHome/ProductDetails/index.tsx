@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ButtonInverse from "../../../components/ButtonInverse";
 import ButtonPrimary from "../../../components/ButtonPrimary";
@@ -12,11 +12,15 @@ import "./styles.css";
 export default function ProductDetails() {
   const params = useParams();
 
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState<ProductDTO>();
 
   useEffect(() => {
     productService.findById(Number(params.productId)).then((response) => {
       setProduct(response.data);
+    }).catch(() => {
+      navigate("/");
     });
   }, []);
 
