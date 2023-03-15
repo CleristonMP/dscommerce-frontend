@@ -12,6 +12,16 @@ export default function Cart() {
     setCart(cartService.getCart());
   }
 
+  function handleIncreaseItem(productId: number) {
+    cartService.increaseItem(productId);
+    setCart(cartService.getCart());
+  }
+
+  function handleDecreaseItem(productId: number) {
+    cartService.decreaseItem(productId);
+    setCart(cartService.getCart());
+  }
+
   return (
     <main>
       <section id="cart-container-section" className="dsc-container">
@@ -33,9 +43,19 @@ export default function Cart() {
                   <div className="dsc-cart-item-description">
                     <h3>{item.name}</h3>
                     <div className="dsc-cart-item-quantity-container">
-                      <div className="dsc-cart-item-quantity-btn">-</div>
+                      <div
+                        onClick={() => handleDecreaseItem(item.productId)}
+                        className="dsc-cart-item-quantity-btn"
+                      >
+                        -
+                      </div>
                       <p>{item.quantity}</p>
-                      <div className="dsc-cart-item-quantity-btn">+</div>
+                      <div
+                        onClick={() => handleIncreaseItem(item.productId)}
+                        className="dsc-cart-item-quantity-btn"
+                      >
+                        +
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -55,7 +75,9 @@ export default function Cart() {
           <Link to="/">
             <div className="dsc-btn dsc-btn-white">Continuar comprando</div>
           </Link>
-          <div onClick={handleClearClick} className="dsc-btn dsc-btn-white">Limpar carrinho</div>
+          <div onClick={handleClearClick} className="dsc-btn dsc-btn-white">
+            Limpar carrinho
+          </div>
         </div>
       </section>
     </main>
