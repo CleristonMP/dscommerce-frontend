@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ButtonInverse from "../../../components/ButtonInverse";
@@ -7,13 +7,17 @@ import ProductDetailsCard from "../../../components/ProductDetailsCard";
 import { ProductDTO } from "../../../models/product";
 import * as cartService from "../../../services/cart-service";
 import * as productService from "../../../services/product-service";
+import { ContextCartCount } from "../../../utils/context-cart";
 
 import "./styles.css";
 
 export default function ProductDetails() {
+
   const params = useParams();
 
   const navigate = useNavigate();
+
+  const {setContextCartCount} = useContext(ContextCartCount);
 
   const [product, setProduct] = useState<ProductDTO>();
 
@@ -31,6 +35,7 @@ export default function ProductDetails() {
   function handleBuyClick() {
     if (product) {
       cartService.addProduct(product);
+      setContextCartCount(cartService.getCart().items.length);
       navigate("/cart");
     }
   }
