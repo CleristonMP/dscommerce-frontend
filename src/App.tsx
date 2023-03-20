@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Admin from "./routes/Admin";
+import AdminHome from "./routes/Admin/AdminHome";
 import ClientHome from "./routes/ClientHome";
 import Cart from "./routes/ClientHome/Cart";
 import Catalog from "./routes/ClientHome/Catalog";
@@ -11,7 +13,9 @@ export default function App() {
   const [contextCartCount, setContextCartCount] = useState<number>(0);
 
   return (
-    <ContextCartCount.Provider value={{contextCartCount, setContextCartCount}}>
+    <ContextCartCount.Provider
+      value={{ contextCartCount, setContextCartCount }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClientHome />}>
@@ -23,6 +27,9 @@ export default function App() {
             />
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
+          </Route>
+          <Route path="/admin/" element={<Admin />}>
+            <Route index element={<AdminHome />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
