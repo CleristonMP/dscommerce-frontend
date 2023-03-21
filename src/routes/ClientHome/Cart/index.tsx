@@ -1,11 +1,14 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { OrderDTO } from "../../../models/order";
-import * as cartService from "../../../services/cart-service";
-import { ContextCartCount } from "../../../utils/context-cart";
 import "./styles.css";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { OrderDTO } from "../../../models/order";
+import { ContextCartCount } from "../../../utils/context-cart";
+import * as cartService from "../../../services/cart-service";
+import * as orderservice from "../../../services/order-service";
 
 export default function Cart() {
+  const navigate = useNavigate();
+
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
 
   const { setContextCartCount } = useContext(ContextCartCount);
@@ -29,6 +32,14 @@ export default function Cart() {
     const newCart = cartService.getCart();
     setCart(newCart);
     setContextCartCount(newCart.items.length);
+  }
+
+  function handlePlaceOrderClick() {
+    orderservice.placeOrderRequest(cart).then(response => {
+      cartService.clearCart();
+      setContextCartCount(0);
+      navigate(`/confirmation/${response.data.id}`)
+    });
   }
 
   return (
@@ -80,7 +91,7 @@ export default function Cart() {
           </div>
         )}
         <div className="dsc-btn-page-container">
-          <div className="dsc-btn dsc-btn-blue">Finalizar pedido</div>
+          <div onClick={handlePlaceOrderClick} className="dsc-btn dsc-btn-blue">Finalizar pedido</div>
           <Link to="/">
             <div className="dsc-btn dsc-btn-white">Continuar comprando</div>
           </Link>
