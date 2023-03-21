@@ -1,11 +1,11 @@
+import "./styles.css";
 import { Link } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import iconAdmin from "../../assets/admin.svg";
 import * as authService from "../../services/auth-service";
-
-import "./styles.css";
 import { useContext } from "react";
 import { ContextToken } from "../../utils/context-token";
+import LoggedUser from "../LoggedUser";
 
 export default function HeaderClient() {
   const { contextTokenPayload } = useContext(ContextToken);
@@ -35,7 +35,7 @@ export default function HeaderClient() {
               </div>
             </Link>
           </div>
-          <Link to="/login">Entrar</Link>
+          <LoggedUser />
         </div>
       </nav>
     </header>
