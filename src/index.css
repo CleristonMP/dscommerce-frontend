@@ -395,6 +395,7 @@ nav a {
   font-size: 20px;
   color: var(--dsc-color-font-primary);
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .dsc-dialog-btn-container {
@@ -402,4 +403,8 @@ nav a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
+}
+
+.dsc-dialog-btn {
+  width: 100%;
 }
