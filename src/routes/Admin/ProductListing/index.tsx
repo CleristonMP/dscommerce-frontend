@@ -66,6 +66,10 @@ export default function ProductListing() {
     setDialogInfoData({ ...dialogInfoData, visible: false });
   }
 
+  function handleUpdateClick(productId: number) {
+    navigate(`/admin/products/${productId}`);
+  }
+
   function handleDeleteClick(productId: number) {
     setDialogConfirmationData({
       ...dialogConfirmationData,
@@ -76,12 +80,18 @@ export default function ProductListing() {
 
   function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
     if (answer) {
-      productService.deleteById(productId).then(() => {
-        setProducts([]);
-        setQueryParams({ ...queryParams, page: 0 });
-      }).catch(error => {
-        setDialogInfoData({visible: true, message: error.response.data.error})
-      });
+      productService
+        .deleteById(productId)
+        .then(() => {
+          setProducts([]);
+          setQueryParams({ ...queryParams, page: 0 });
+        })
+        .catch((error) => {
+          setDialogInfoData({
+            visible: true,
+            message: error.response.data.error,
+          });
+        });
     }
 
     setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
@@ -94,7 +104,7 @@ export default function ProductListing() {
 
         <div className="dsc-btn-page-container dsc-mb20">
           <div onClick={handleNewProductClick}>
-          <ButtonInverse text="Novo" />
+            <ButtonInverse text="Novo" />
           </div>
         </div>
 
@@ -126,6 +136,7 @@ export default function ProductListing() {
                 <td className="dsc-txt-left">{product.name}</td>
                 <td>
                   <img
+                    onClick={() => handleUpdateClick(product.id)}
                     className="dsc-product-listing-btn"
                     src={editIcon}
                     alt="Editar"
