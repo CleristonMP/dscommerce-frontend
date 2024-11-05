@@ -32,8 +32,7 @@ O projeto conta com as seguintes funcionalidades específicas:
 
 1. **Autenticação e Autorização**: A aplicação possui uma área administrativa que requer autenticação e autorização dos usuários. Apenas usuários autorizados têm acesso a essa área.
 2. **Carrinho de Compras**: Os usuários podem adicionar, alterar a quantidade e remover itens do carrinho de compras. O carrinho é persistido no localStorage do navegador.
-3. **Catálogo de Produtos**: A área pública da aplicação apresenta um catálogo de produtos para os usuários, com paginação do tipo "Carregar Mais".
-4. **Área Administrativa**: A área administrativa permite o CRUD (Criar, Ler, Atualizar, Excluir) de produtos.
+3. **Paginação de Catálogo**: O catálogo de produtos implementa paginação do tipo "Carregar Mais", permitindo que os usuários carreguem mais produtos à medida que rolam a página.
 
 ## Rotas
 
